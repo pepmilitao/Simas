@@ -18,16 +18,16 @@ class FIFO(Algoritmo):
 
             faltas_pagina += 1
 
-            if len(frames) < num_frames:
-                frames.add(p)
+            if len(quadros) < total_quadros:
+                quadros.add(p)
                 fila.append(p)
             else:
                 velha = fila.popleft()
-                frames.remove(velha)
+                quadros.remove(velha)
 
                 eviccoes += 1
 
-                frames.add(p)
+                quadros.add(p)
                 fila.append(p)
 
         return {
@@ -36,5 +36,5 @@ class FIFO(Algoritmo):
             "total_referencias": len(cadeia_ref),
             "faltas_pagina": faltas_pagina,
             "eviccoes": eviccoes,
-            "conjunto_residente": list(quadros.keys())
+            "conjunto_residente": list(quadros)
         }

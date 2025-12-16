@@ -39,5 +39,5 @@ class Otimo(Algoritmo):
             "total_referencias": len(cadeia_ref),
             "faltas_pagina": faltas_pagina,
             "eviccoes": eviccoes,
-            "conjunto_residente": list(quadros.keys())
+            "conjunto_residente": list(frames)
         }

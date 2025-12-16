@@ -5,7 +5,7 @@ class SegundaChance(Algoritmo):
     def __init__(self):
         self.nome = "Segunda Chance"
 
-    def executa_algoritmo(self, cadeia_ref, quadros):
+    def executa_algoritmo(self, cadeia_ref, total_quadros):
         quadros = []
         ref_bit = {}
         ponteiro = 0
@@ -46,5 +46,5 @@ class SegundaChance(Algoritmo):
             "total_referencias": len(cadeia_ref),
             "faltas_pagina": faltas_pagina,
             "eviccoes": eviccoes,
-            "conjunto_residente": list(quadros.keys())
+            "conjunto_residente": list(quadros)
         }

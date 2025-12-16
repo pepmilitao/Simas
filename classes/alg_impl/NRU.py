@@ -1,12 +1,13 @@
 from classes.Algoritmo import Algoritmo
+import random
 
 class NRU(Algoritmo):
 
-    def __init__(self, reset_intervalo):
+    def __init__(self):
         self.nome = "NRU"
-        self.reset_intervalo = reset_intervalo
+        self.reset_intervalo = 5
 
-    def executa_algoritmo(self, cadeia_ref, quadros):
+    def executa_algoritmo(self, cadeia_ref, total_quadros):
         quadros = []
         bits = {}  # pagina -> [R, M]
         faltas_pagina = 0
@@ -56,5 +57,5 @@ class NRU(Algoritmo):
             "total_referencias": len(cadeia_ref),
             "faltas_pagina": faltas_pagina,
             "eviccoes": eviccoes,
-            "conjunto_residente": list(quadros.keys())
+            "conjunto_residente": list(quadros)
         }

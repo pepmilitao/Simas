@@ -6,7 +6,7 @@ class MFU(Algoritmo):
     def __init__(self):
         self.nome = "MFU"
 
-    def executa_algoritmo(self, cadeia_ref, quadros):
+    def executa_algoritmo(self, cadeia_ref, total_quadros):
         quadros = OrderedDict()
         faltas_pagina = 0
         eviccoes = 0
@@ -31,5 +31,5 @@ class MFU(Algoritmo):
             "total_referencias": len(cadeia_ref),
             "faltas_pagina": faltas_pagina,
             "eviccoes": eviccoes,
-            "conjunto_residente": list(quadros.keys())
+            "conjunto_residente": list(quadros)
         }

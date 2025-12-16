@@ -1,4 +1,5 @@
 from classes.Algoritmo import Algoritmo
+from collections import OrderedDict
 
 class LRU(Algoritmo):
 
@@ -16,7 +17,7 @@ class LRU(Algoritmo):
             else:
                 faltas_pagina += 1
 
-                if len(frames) >= num_frames:
+                if len(frames) >= total_quadros:
                     frames.popitem(last=False)
                     eviccoes += 1
 
@@ -28,5 +29,5 @@ class LRU(Algoritmo):
             "total_referencias": len(cadeia_ref),
             "faltas_pagina": faltas_pagina,
             "eviccoes": eviccoes,
-            "conjunto_residente": list(quadros.keys())
+            "conjunto_residente": list(frames)
         }
