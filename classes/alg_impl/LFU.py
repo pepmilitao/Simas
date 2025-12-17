@@ -22,7 +22,6 @@ class LFU(Algoritmo):
                 continue
 
             faltas_pagina += 1
-
             if len(quadros) < total_quadros:
                 quadros.add(p)
                 freq[p] = 1
@@ -37,9 +36,7 @@ class LFU(Algoritmo):
                 quadros.remove(vitima)
                 del freq[vitima]
                 del tempo[vitima]
-
                 eviccoes += 1
-
                 quadros.add(p)
                 freq[p] = 1
                 tempo[p] = tempo_atual

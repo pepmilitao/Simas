@@ -5,7 +5,7 @@ class NRU(Algoritmo):
 
     def __init__(self):
         self.nome = "NRU"
-        self.reset_intervalo = 5
+        self.reset_intervalo = 10
 
     def executa_algoritmo(self, cadeia_ref, total_quadros):
         quadros = []

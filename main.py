@@ -19,8 +19,8 @@ ALGORITMOS = {
 }
 
 def imprimir_resultado(resultado):
-    total_refs = resultado["total_referencias"]
-    faltas = resultado["faltas_pagina"]
+    total_refs = resultado['total_referencias']
+    faltas = resultado['faltas_pagina']
     taxa = (faltas / total_refs) * 100 if total_refs > 0 else 0.0
 
     print(f"Algoritmo: {resultado['algoritmo']}")
@@ -32,13 +32,13 @@ def imprimir_resultado(resultado):
     print("Conjunto residente final:")
 
     # frame_ids sempre de 0 até total_quadros-1
-    frame_ids = ''.join(str(i) for i in range(resultado["total_quadros"]))
+    frame_ids = ' '.join(str(i) for i in range(resultado["total_quadros"]))
 
     # page_ids na ordem recebida
-    page_ids = ''.join(str(p) for p in resultado["conjunto_residente"])
+    page_ids = ' '.join(str(p) for p in resultado["conjunto_residente"])
 
-    print(f"frame_ids:{frame_ids}")
-    print(f"page_ids:{page_ids}")
+    print(f"frame_ids: {frame_ids}")
+    print(f"page_ids:  {page_ids}")
 
 def ler_trace(caminho):
     with open(caminho, "r") as f:

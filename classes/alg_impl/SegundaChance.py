@@ -3,7 +3,7 @@ from classes.Algoritmo import Algoritmo
 class SegundaChance(Algoritmo):
 
     def __init__(self):
-        self.nome = "Segunda Chance"
+        self.nome = "Segunda chance"
 
     def executa_algoritmo(self, cadeia_ref, total_quadros):
         quadros = []

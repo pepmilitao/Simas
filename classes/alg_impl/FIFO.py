@@ -17,16 +17,13 @@ class FIFO(Algoritmo):
                 continue
 
             faltas_pagina += 1
-
             if len(quadros) < total_quadros:
                 quadros.add(p)
                 fila.append(p)
             else:
                 velha = fila.popleft()
                 quadros.remove(velha)
-
                 eviccoes += 1
-
                 quadros.add(p)
                 fila.append(p)
 
