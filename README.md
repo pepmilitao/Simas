@@ -12,6 +12,18 @@
 
 
 ## Descrição
+Este projeto consiste no desenvolvimento de um simulador de gerência de memória por paginação, reproduzindo o funcionamento de algoritmos clássicos de substituição de páginas utilizados em sistemas operacionais modernos. O simulador executa leituras de um arquivo de traço de referências e analisa o desempenho de diversas estratégias de remoção de páginas, facilitando estudo e comparação do impacto de cada algoritmo sobre as faltas de página e a eficiência da memória virtual.
+
+Os algoritmos suportados são:
+
+- FIFO (First-In, First-Out)
+- LRU (Least Recently Used)
+- Ótimo
+- Segunda Chance
+- Clock
+- NRU (Not Recently Used)
+- LFU (Least Frequently Used)
+- MFU (Most Frequently Used)
 
 ---
 
@@ -26,71 +38,63 @@
 ## Estrutura do repositório
 
 ```text
+.
+├── ./classes
+│   ├── ./classes/alg_impl
+│   │   ├── ./classes/alg_impl/FIFO.py
+│   │   ├── ./classes/alg_impl/LFU.py
+│   │   ├── ./classes/alg_impl/LRU.py
+│   │   ├── ./classes/alg_impl/MFU.py
+│   │   ├── ./classes/alg_impl/NRU.py
+│   │   ├── ./classes/alg_impl/Otimo.py
+│   │   └── ./classes/alg_impl/SegundaChance.py
+│   └── ./classes/Algoritmo.py
+├── ./main.py
+├── ./README.md
+└── ./traces
+    ├── ./traces/belady.trace
+    └── ./traces/silberschatz2001.trace
 
 ```
 
-### Organização dos Componentes
-
-
 ## Métodos Implementados
 
-
-### Inicialização
-- [x] `init(int tamanho)`
-    - [x] Inicializa a memória física simulada
-    - [x] Cria o primeiro bloco livre
-    - [x] Impede operações antes da inicialização
-
-
-### Alocação de Memória
-- [ ] `alloc(int tamanho, FitAlg algoritmo)`
-    - [ ] Localiza um bloco livre adequado
-    - [ ] Aplica o algoritmo selecionado (First, Best ou Worst Fit)
-    - [ ] Divide o bloco quando necessário
-    - [ ] Atribui um identificador único ao bloco alocado
-
-
-- [x] `choose_block(int tamanho, FitAlg algoritmo)`
-    - [x] Implementa a lógica do First Fit
-    - [x] Implementa a lógica do Best Fit
-    - [x] Implementa a lógica do Worst Fit
-
-
-### Liberação de Memória
-- [ ] `free_id(int id)`
-    - [ ] Localiza o bloco pelo identificador
-    - [ ] Marca o bloco como livre
-    - [ ] Realiza coalescência com blocos adjacentes
-
-
-### Visualização
-- [ ] `show()`
-    - [ ] Exibe o mapa físico da memória (`#` e `.`)
-    - [ ] Exibe os identificadores dos blocos
-    - [ ] Mantém alinhamento proporcional ao tamanho da memória
-
-
-### Estatísticas
-- [ ] `stats()`
-    - [ ] Calcula memória total
-    - [ ] Calcula memória ocupada e livre
-    - [ ] Identifica buracos (fragmentação externa)
-    - [ ] Calcula fragmentação interna
-    - [ ] Exibe taxa de uso efetivo da memória
-
+- [x] Leitura do arquivo de referências (.trace)
+    - [x] Carrega a sequência de referências de páginas do arquivo especificado.
+- [x] Inicialização da estrutura de frames
+    - [x] Define e zera os frames disponíveis na memória física.
+- [x] Execução dos algoritmos de substituição de páginas
+    - [x] FIFO (First-In, First-Out)
+    - [x] LRU (Least Recently Used)
+    - [x] Ótimo
+    - [x] Segunda Chance
+    - [x] Clock
+    - [x] NRU (Not Recently Used)
+    - [x] LFU (Least Frequently Used)
+    - [x] MFU (Most Frequently Used)
+- [x] Processamento do ciclo de referências
+    - [x] Para cada referência, verifica se há falta de página.
+    - [x] Aplica a política do algoritmo selecionado para inserir/evictar páginas.
+- [x] Controle e atualização das páginas nos frames
+    - [x] Gerencia contadores, bits de referência, uso recente, etc.
+- [x] Cálculo das métricas de desempenho
+    - [x] Número total de faltas de página
+    - [x] Taxa de faltas (%)
+    - [x] Quantidade de evicções
+    - [x] Identificação do conjunto residente final
+- [x] Geração da saída dos resultados
+    - [x] Exibe, ao final, as métricas e o conteúdo dos frames
+    - [x] (Opcional) Exibe passo a passo se modo verbose estiver ativado
 ---
 
 ## Comandos Disponíveis
 
 | Comando | Descrição |
 |-------|-----------|
-| `init <tamanho>` | Inicializa a memória com o tamanho especificado |
-| `alloc <tamanho> <algoritmo>` | Aloca memória usando First, Best ou Worst Fit |
-| `freeid <id>` | Libera um bloco pelo identificador |
-| `show` | Exibe o mapa atual da memória |
-| `stats` | Exibe estatísticas de uso e fragmentação |
-
-
+| `--algo <algoritmo>` | Define o algoritmo de substituição a ser usado (ex: lru, fifo, otimo, etc).|
+| `--frames <N>` | Define o número de frames físicos na memória. |
+| `--trace <arquivo>` | Define o arquivo de referência de página. |
+| `--verbose` | (Opcional) Mostra detalhes/explanação das decisões em cada passo. |
 
 ---
 
@@ -99,30 +103,21 @@
 Após a execução dos comandos:
 
 ```text
-> init 64
-> alloc 10 first
-> alloc 8 first
-> freeid 2
-> alloc 6 best
-> show
+> ./pager --algo lru --frames 3 --trace traces/silberschatz2001.trace
 ```
 
 O simulador deve apresentar uma saída desse tipo:
 
 ```text
-Mapa de Memória (64 bytes)
-------------------------------------------------------------
-[##########......######....................................]
-[1111111111......333333....................................]
-------------------------------------------------------------
-
-Blocos ativos:
-[id=1] @0 +10B (usado=10B) | [id=3] @10 +6B (usado=6B)
-
-== Estatísticas ==
-Tamanho total: 64 bytes
-Ocupado: 16 bytes | Livre: 48 bytes
-Buracos (fragmentação externa): 2
-Fragmentação interna: 0 bytes
-Uso efetivo: 25.00%
+Algoritmo: LRU
+Frames: 3
+Referências: 20
+Faltas de página: 12
+Taxa de faltas: 60.00%
+Evicções: 12
+Conjunto residente final:
+frame_ids:
+ 0 1 2
+page_ids:
+ 1 7 0
 ```
